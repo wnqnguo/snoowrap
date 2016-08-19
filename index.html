@@ -84,7 +84,7 @@
 
 
     <section class="readme-section">
-        <article><h1>snoowrap <a href="https://travis-ci.org/not-an-aardvark/snoowrap"><img src="https://travis-ci.org/not-an-aardvark/snoowrap.svg?branch=v1.5.0" alt="Build Status"></a></h1><p>A fully-featured Node.js wrapper for the reddit API. (<a href="https://not-an-aardvark.github.io/snoowrap">Documentation</a>)</p>
+        <article><h1>snoowrap <a href="https://travis-ci.org/not-an-aardvark/snoowrap"><img src="https://travis-ci.org/not-an-aardvark/snoowrap.svg?branch=v1.6.0" alt="Build Status"></a></h1><p>A fully-featured Node.js wrapper for the reddit API. (<a href="https://not-an-aardvark.github.io/snoowrap">Documentation</a>)</p>
 <h3>Features</h3><ul>
 <li>snoowrap provides a simple interface to access every reddit API endpoint. For example, the method to get a user profile is just <code>get_user()</code>, and the method to upvote something is just <code>upvote()</code>.</li>
 <li>snoowrap is non-blocking; all of its API calls are asynchronous and return bluebird Promises. This means that you can handle concurrent requests however you want to, and you can use snoowrap as part of a larger process without it holding everything back.</li>
@@ -131,8 +131,7 @@ const otherRequester = new snoowrap({
   password: 'put your password here'
 })
 
-/* That's the entire setup process, now you can just make requests. I would recommend including async functions in your project
-by using babel.js (or some equivalent), but this example file uses vanilla Promises for simplicity. */
+// That's the entire setup process, now you can just make requests.
 
 // Submitting a link to a subreddit
 r.get_subreddit('gifs').submit_link({
@@ -147,14 +146,14 @@ r.get_hot().map(post => post.title).then(console.log);
 r.get_submission('4j8p6d').expand_replies({limit: Infinity, depth: Infinity}).then(console.log)
 
 // Automating moderation tasks
-r.get_subreddit('some_subreddit_name').get_modqueue({limit: 100}).filter(/some-removal-condition/.test).forEach(flaggedItem => {
+r.get_subreddit('some_subreddit_name').get_modqueue({limit: 100}).filter(someRemovalCondition).forEach(flaggedItem => {
   flaggedItem.remove();
   flaggedItem.subreddit.ban_user(flaggedItem.author);
 });
 
 // Automatically creating a stickied thread for a moderated subreddit
 r.get_subreddit('some_subreddit_name')
-  .create_selfpost({title: 'Daily thread', text: 'Discuss things here'})
+  .submit_selfpost({title: 'Daily thread', text: 'Discuss things here'})
   .sticky()
   .distinguish()
   .approve()
@@ -193,8 +192,8 @@ r.get_submission('47v7tm').fetch().then(submission => {
 <p>snoowrap is usable with module bundlers such as <a href="http://browserify.org/">browserify</a>.</p>
 <p>Alternatively, prebuilt versions are available:</p>
 <ul>
-<li><a href="https://not-an-aardvark.github.io/snoowrap/snoowrap.js">snoowrap.js</a></li>
-<li><a href="https://not-an-aardvark.github.io/snoowrap/snoowrap.min.js">snoowrap.min.js</a></li>
+<li><a href="https://not-an-aardvark.github.io/snoowrap/snoowrap-v1.6.0.js">snoowrap.js</a></li>
+<li><a href="https://not-an-aardvark.github.io/snoowrap/snoowrap-v1.6.0.min.js">snoowrap.min.js</a></li>
 </ul>
 <p>When run in a browser, snoowrap will be assigned to the global variable <code>window.snoowrap</code>.</p>
 <h3>To build/run the tests independently</h3><p>See the <a href="https://github.com/not-an-aardvark/snoowrap/blob/master/CONTRIBUTING.md">contributing guide</a> and the <a href="https://github.com/not-an-aardvark/snoowrap/blob/master/src/README.md">getting started</a> page.</p>
@@ -239,7 +238,7 @@ r.get_submission('47v7tm').fetch().then(submission => {
 
 <footer>
 
-	<script src="snoowrap.min.js"></script>
+	<script src="snoowrap-v1.6.0.min.js"></script>
 
 <script>
 var DO_NOT_TRACK = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;

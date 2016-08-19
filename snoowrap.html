@@ -587,7 +587,7 @@ not recommended for long-term use.</li>
             
 
             <td class="description last"><p>A map of <code>{[config property name]: value}</code>. Note that any omitted config properties will simply
-  retain whatever value they had previously (In other words, if you only want to change one property, you only need to put
+  retain whatever value they had previously. (In other words, if you only want to change one property, you only need to put
   that one property in this parameter. To get the current configuration without modifying anything, simply omit this
   parameter.)</p>
                 <h6 class="method-params-label method-subparams-label">Properties</h6>
@@ -821,7 +821,7 @@ not recommended for long-term use.</li>
             
 
             <td class="description last"><p>If reddit responds to an idempotent request with one of
-  these error codes, snoowrap will retry the request, up to a maximum of <code>options.max_retry_attempts</code> requests in total. (Thes
+  these error codes, snoowrap will retry the request, up to a maximum of <code>max_retry_attempts</code> requests in total. (These
    errors usually indicate that there was an temporary issue on reddit's end, and retrying the request has a decent chance of
   success.) This behavior can be disabled by simply setting this property to an empty array.</p></td>
         </tr>
@@ -1040,7 +1040,7 @@ not recommended for long-term use.</li>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">r.config({request_delay: 1000, suppress_warnings: true});
+    <pre class="sunlight-highlight-javascript">r.config({request_delay: 1000, warnings: false});
 // sets the request delay to 1000 milliseconds, and suppresses warnings.</pre>
 
 
@@ -5018,6 +5018,11 @@ r.get_hot(&#x27;redditdev&#x27;, {limit: 1}).then(console.log)
 </dt>
 <dd>
 
+    
+    <div class="description">
+        <p><strong>Note</strong>: This function will not work when snoowrap is running in a browser, because the reddit server sends a
+  redirect which cannot be followed by a CORS request.</p>
+    </div>
     
 
     
@@ -11029,6 +11034,11 @@ r.mark_messages_as_read([r.get_message(&#x27;51shsd&#x27;), r.get_comment(&#x27;
 <dd>
 
     
+    <div class="description">
+        <p><strong>Note:</strong> This function will not work when snoowrap is running in a browser, due to an issue with reddit's CORS
+  settings.</p>
+    </div>
+    
 
     
 
@@ -12367,9 +12377,6 @@ easier to just use snoowrap's <a href="VoteableContent.html#upvote"><code>upvote
             
                 
 <span class="param-type">object</span>
-|
-
-<span class="param-type">string</span>
 
 
 
@@ -12380,9 +12387,10 @@ easier to just use snoowrap's <a href="VoteableContent.html#upvote"><code>upvote
 
             
 
-            <td class="description last"><p>Options for the request. These options will be passed directly to the
-<a href="https://www.npmjs.com/package/request">Request API</a>. A default <code>baseUrl</code> parameter of <code>this.config().endpoint_domain</code> is
-internally included by default, so it is recommended that a <code>uri</code> parameter be used, rather than a <code>url</code> parameter with a
+            <td class="description last"><p>Options for the request. For documentation on these options, see the
+<a href="https://www.npmjs.com/package/request">Request API</a>. Supported options include <code>uri</code>, <code>qs</code>, <code>form</code>, <code>headers</code>, <code>method</code>,
+<code>auth</code>, and <code>body</code>. A default <code>baseUrl</code> parameter of <code>this.config().endpoint_domain</code> is internally included by default, so it
+is recommended that a <code>uri</code> parameter be used, rather than a <code>url</code> parameter with a
 domain name.</p></td>
         </tr>
 
@@ -12981,7 +12989,7 @@ a stable feature, using it is rarely necessary unless an access token is needed 
 
 <footer>
 
-	<script src="snoowrap.min.js"></script>
+	<script src="snoowrap-v1.6.0.min.js"></script>
 
 <script>
 var DO_NOT_TRACK = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;

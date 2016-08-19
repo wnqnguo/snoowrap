@@ -73,6 +73,8 @@
         </h2>
         
             <div class="class-description"><p>A class representing a wiki page on a subreddit.</p>
+<p><strong>Note:</strong> Due to a bug in reddit's CORS settings, it is not possible to fetch the contents of a wiki page on a private
+subreddit while running snoowrap in a browser. (This issue does not apply when running snoowrap in Node.js.)</p>
 <style> #WikiPage {display: none} </style></div>
         
     
@@ -2414,7 +2416,7 @@ JSON.stringify(user) // =&gt; &#x27;{&quot;name&quot;:&quot;not_an_aardvark&quot
 
 <footer>
 
-	<script src="snoowrap.min.js"></script>
+	<script src="snoowrap-v1.6.0.min.js"></script>
 
 <script>
 var DO_NOT_TRACK = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
